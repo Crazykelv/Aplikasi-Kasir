@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\accController;
+use App\Http\Controllers\dbController;
+use App\Http\Controllers\navController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +19,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// navController
+Route::get('',[navController::class,'']);
+
+
+// dbController
+
+
+
+Route::post('/addProduk',[dbController::class,'addProduk']);
+
+
+// accController
+
+
+
+Route::post('/login',[accController::class,'login']);
+Route::post('/register',[accController::class,'register']);
+Route::post('/logout',[accController::class,'logout']);
