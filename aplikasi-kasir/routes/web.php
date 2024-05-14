@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\accController;
+use App\Http\Controllers\dashboardHandler;
 use App\Http\Controllers\dbController;
 use App\Http\Controllers\navController;
 use Illuminate\Support\Facades\Route;
@@ -18,24 +19,31 @@ use Illuminate\Support\Facades\Route;
 
 
 // navController
-Route::get('/',[navController::class,'home']);
-Route::get('',[navController::class,'']);
-Route::get('',[navController::class,'']);
-Route::get('',[navController::class,'']);
+Route::get('/',[navController::class,'login']);
+Route::get('/dashboard',[navController::class,'dashboard']);
+
 
 
 
 // dbController
-Route::get('',[dbController::class,'']);
+
 
 
 Route::post('/addProduk',[dbController::class,'addProduk']);
 
 
 // accController
-Route::get('',[accController::class,'']);
+
 
 
 Route::post('/login',[accController::class,'login']);
 Route::post('/register',[accController::class,'register']);
 Route::post('/logout',[accController::class,'logout']);
+
+
+// dashboardHandler
+Route::get('/filterMale',[dashboardHandler::class,'filterMale']);
+Route::get('/filterFemale',[dashboardHandler::class,'filterFemale']);
+Route::get('/filterSetelan',[dashboardHandler::class,'filterSetelan']);
+Route::get('/filterCelana',[dashboardHandler::class,'filterCelana']);
+Route::get('/filterBaju',[dashboardHandler::class,'filterBaju']);

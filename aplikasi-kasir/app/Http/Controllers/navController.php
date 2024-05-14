@@ -6,8 +6,14 @@ use Illuminate\Http\Request;
 
 class navController extends Controller
 {
-    public function home() {
+    public function login() {
 
-        return view('/');
+        return view('login');
     }
+
+    public function dashboard() {
+
+        return view('dashboard');
+    }
+
 }
