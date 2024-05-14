@@ -15,7 +15,7 @@ class accController extends Controller
             'loginpassword' => 'required'
         ]);
 
-        if (auth()->attempt(['enail' => $incomingFields['loginemail'], 'password' => $incomingFields['loginpassword']])) {
+        if (auth()->attempt(['email' => $incomingFields['loginemail'], 'password' => $incomingFields['loginpassword']])) {
             $request->session()->regenerate();
             return redirect('/');
         }
