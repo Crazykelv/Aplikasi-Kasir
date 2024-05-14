@@ -26,6 +26,8 @@ class dbController extends Controller
 
         }
 
+        $produk->save();
+
         return view('');
     }
 

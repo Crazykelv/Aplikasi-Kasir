@@ -16,23 +16,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // navController
+Route::get('/',[navController::class,'home']);
+Route::get('',[navController::class,'']);
+Route::get('',[navController::class,'']);
 Route::get('',[navController::class,'']);
 
 
-// dbController
 
+// dbController
+Route::get('',[dbController::class,'']);
 
 
 Route::post('/addProduk',[dbController::class,'addProduk']);
 
 
 // accController
-
+Route::get('',[accController::class,'']);
 
 
 Route::post('/login',[accController::class,'login']);
