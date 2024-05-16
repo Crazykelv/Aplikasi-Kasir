@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 // navController
 Route::get('/',[navController::class,'login']);
 Route::get('/dashboard',[navController::class,'dashboard']);
+Route::get('/nAddProduk',[navController::class,'nAddProduk']);
 
 
 
@@ -32,13 +33,14 @@ Route::get('/dashboard',[navController::class,'dashboard']);
 Route::post('/addProduk',[dbController::class,'addProduk']);
 
 
+
 // accController
-
-
-
+Route::get('/logout',[accController::class,'logout']);
 Route::post('/login',[accController::class,'login']);
+
+
 Route::post('/register',[accController::class,'register']);
-Route::post('/logout',[accController::class,'logout']);
+
 
 
 // dashboardHandler
@@ -47,3 +49,4 @@ Route::get('/filterFemale',[dashboardHandler::class,'filterFemale']);
 Route::get('/filterSetelan',[dashboardHandler::class,'filterSetelan']);
 Route::get('/filterCelana',[dashboardHandler::class,'filterCelana']);
 Route::get('/filterBaju',[dashboardHandler::class,'filterBaju']);
+// Route::get('/tambah/{$produkid}',[dashboardHandler::class,'tambah']);

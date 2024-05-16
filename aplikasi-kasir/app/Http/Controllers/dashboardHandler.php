@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produk;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 
 class dashboardHandler extends Controller
@@ -9,30 +11,80 @@ class dashboardHandler extends Controller
     // Filter
     public function filterMale() {
 
-        return view('');
-    }
+        $produk = Produk::where('kelamin', 'laki-laki')->get();
+        $cart = Cart::all();
+
+        return view('dashboard', [
+            'produk' => $produk,
+            'cart' => $cart
+        ]);
+    } 
 
     public function filterFemale() {
 
-        return view('');
+        $produk = Produk::where('kelamin', 'perempuan')->get();
+        $cart = Cart::all();
+
+        return view('dashboard', [
+            'produk' => $produk,
+            'cart' => $cart
+        ]);
+
     }
 
     public function filterSetelan() {
 
-        return view('');
+        $produk = Produk::where('kategori', 'celana')->get();
+        $cart = Cart::all();
+
+
+        return view('dashboard', [
+            'produk' => $produk,
+            'cart' => $cart
+        ]);
     }
 
     public function filterCelana() {
 
-        return view('');
+        $produk = Produk::where('kategori', 'celana')->get();
+        $cart = Cart::all();
+
+        return view('dashboard', [
+            'produk' => $produk,
+            'cart' => $cart
+        ]);
     }
 
     public function filterBaju() {
 
-        return view('');
+        $produk = Produk::where('kategori', 'baju')->get();
+        $cart = Cart::all();
+
+        return view('dashboard', [
+            'produk' => $produk,
+            'cart' => $cart
+        ]);
     }
     // Filter
 
+    // public function tambahCart(Produk $produkid) {
+
+    //     // $produks = Produk::all();
+    //     $produk = Produk::find($produkid);
+    //     // $cart = new Cart;
+
+    //     // $cart -> namaProduk = $produk->namaProduk;
+    //     // $cart -> kuantitasProduk = $produk->kuantitasProduk;
+    //     // $cart -> hargaProduk = $produk->hargaProduk;
+
+    //     // $cart->save();
+
+    //     // dd($produkid);
+
+    //     return view('dashboard', [
+    //         'produk' => $produk
+    //     ]);
+    // }
 
     // Sidebar
     

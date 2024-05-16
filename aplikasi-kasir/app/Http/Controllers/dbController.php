@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Produk;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 
 class dbController extends Controller
@@ -13,6 +15,7 @@ class dbController extends Controller
 
         $produk -> nama = $request -> nama;
         $produk -> kategori = $request -> kategori;
+        $produk -> kelamin = $request -> kelamin;
         $produk -> harga = $request -> harga;
         $produk -> stok = $request -> stok;
         
@@ -21,20 +24,31 @@ class dbController extends Controller
         if ($gambar) {
 
             $gambarname = time().'.'. $gambar -> getClientOriginalExtension();
-            $request -> foto -> move('foto-produk',$gambarname);
-            $produk -> foto = $gambarname;
+            $request -> foto -> move('images/foto-produk',$gambarname);
+            $produk -> fotoP = $gambarname;
 
         }
 
         $produk->save();
 
-        return view('');
+        return view('tambah-produk');
     }
 
-    public function addTransaksi() {
+    public function addTransaksi($id) {
+
+        $user = User::all();
+
+        if ($user -> id == $id) {
+
+        }
+        else {
+            $user = new User;  
+            
+        }
 
         
 
         return view('');
     }
+
 }

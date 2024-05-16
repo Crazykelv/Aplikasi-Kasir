@@ -11,13 +11,13 @@ class accController extends Controller
     // Login & Register buat Admin
     public function login(Request $request) {
         $incomingFields = $request -> validate([
-            'loginemail' => 'required',
-            'loginpassword' => 'required'
+            'email' => 'required',
+            'password' => 'required'
         ]);
 
-        if (auth()->attempt(['email' => $incomingFields['loginemail'], 'password' => $incomingFields['loginpassword']])) {
+        if (auth()->attempt(['email' => $incomingFields['email'], 'password' => $incomingFields['password']])) {
             $request->session()->regenerate();
-            return redirect('/');
+            return redirect('/dashboard');
         }
         else {
             return redirect('/loginw');
@@ -40,7 +40,7 @@ class accController extends Controller
         $user = User::create($incomingFields);
         auth()->login($user);
 
-        return redirect('/home');
+        return redirect('dashboard');
     }   // Login & Register buat Admin
 
     // Tambah data member
