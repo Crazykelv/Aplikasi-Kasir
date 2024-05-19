@@ -29,4 +29,18 @@ class navController extends Controller
         return view('tambah-produk');
     }
 
+    public function member() {
+
+        return view('member');
+    }
+    public function addMember() {
+
+        return view('add-member');
+    }
+
+    public function history() {
+
+        return view('history');
+    }
+
 }

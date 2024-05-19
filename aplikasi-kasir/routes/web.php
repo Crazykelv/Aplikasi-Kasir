@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[navController::class,'login']);
 Route::get('/dashboard',[navController::class,'dashboard']);
 Route::get('/nAddProduk',[navController::class,'nAddProduk']);
+Route::get('/member',[navController::class,'member']);
+Route::get('/addMember',[navController::class,'addMember']);
+Route::get('/history-transaksi',[navController::class,'history']);
 
 
 
