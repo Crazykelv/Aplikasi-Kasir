@@ -13,8 +13,9 @@ class navController extends Controller
         return view('login');
     }
 
-    public function dashboard() {
-        
+    public function dashboard()
+    {
+
         $produk = Produk::all();
         $cart = Cart::all();
 

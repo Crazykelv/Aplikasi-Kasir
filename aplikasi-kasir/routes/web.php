@@ -34,7 +34,7 @@ Route::get('/history-transaksi',[navController::class,'history']);
 
 
 Route::post('/addProduk',[dbController::class,'addProduk']);
-
+Route::post('/addcart/{id}', [dbController::class, 'addcart']);
 
 
 // accController

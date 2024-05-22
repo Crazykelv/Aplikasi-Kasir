@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\User;
 use App\Models\Produk;
-use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class dbController extends Controller
 {
@@ -50,5 +51,34 @@ class dbController extends Controller
 
         return view('');
     }
+
+    public function addcart(Request $request, $produkid)
+    {
+        if (Auth::id()) {
+            $user = auth()->user();
+            $produk = Produk::find($produkid);
+
+            // Check if the product is already in the cart
+            $cartItem = Cart::where('namaProduk', $produk->nama)->first();
+
+            if ($cartItem) {
+                // If the product is already in the cart, increment the quantity
+                $cartItem->kuantitasProduk += $request->kuantitasProduk;
+                $cartItem->save();
+            } else {
+                // If the product is not in the cart, add a new item
+                $cart = new Cart;
+                $cart->namaProduk = $produk->nama;
+                $cart->kuantitasProduk = $request->kuantitasProduk;
+                $cart->hargaProduk = $produk->harga;
+                $cart->save();
+            }
+
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
+        } else {
+            return redirect('login')->with('error', 'You need to login first!');
+        }
+    }
+
 
 }

@@ -44,16 +44,21 @@
             </div>
 
             <div class="grid grid-cols-5 gap-y-10 justify-between">
-            @foreach ($produk as $item)
-                <a href="" class="flex flex-col items-center gap-2 max-w-[130px]">
-                    <div id="img-container" class="relative">
-                        <img class="rounded-lg max-w-[120px] max-h-[120px] first-image block object-contain" src="images/foto-produk/{{$item->fotoP}}" alt="">
-                        <img id="hover-image" src="pictures\plus.png" alt="hover" class="hidden second-image absolute top-0 left-0 rounded-lg max-w-[120px] max-h-[120px] opacity-60">
+                @foreach ($produk as $item)
+                <form action="{{url('addcart', $item->id)}}" method="post" id="add-to-cart-{{$item->id}}">
+                    @csrf
+                    <input type="hidden" name="namaProduk" value="{{$item->nama}}">
+                    <input type="hidden" name="kuantitasProduk" value="1">
+                    <input type="hidden" name="hargaProduk" value="{{$item->harga}}">
+                    <div class="grid grid-cols-5 gap-y-10 justify-between">
+                        <a href="javascript:void(0)" onclick="document.getElementById('add-to-cart-{{$item->id}}').submit();" class="flex flex-col items-center gap-2 max-w-[130px]">
+                            <img class="rounded-lg max-w-[120px] max-h-[120px]" src="images/foto-produk/{{$item->fotoP}}" alt="">
+                            <h1 class=" text-xs">{{$item->nama}}</h1>
+                            <h1 class="font-semibold text-[10px]">Rp. {{$item->harga}}</h1>
+                        </a>
                     </div>
-                    <h1 class=" text-xs">{{$item->nama}}</h1>
-                    <h1 class="font-semibold text-[10px]">Rp. {{$item->harga}}</h1>
-                </a>
-            @endforeach
+                </form>
+                @endforeach
             </div>
 
 
@@ -115,17 +120,17 @@
                 </thead>
                 <tbody class="mt-6 ">
                 
-                @foreach ($cart as $cart)
-                <tr>
-                    <td class="text-[12px]">{{$cart->namaProduk}}</td>
-                    <td class="flex items-center gap-2 text-[12px]">
-                        <button><img class="max-h-[12px] max-w-[12px] border rounded-full border-[#CA3DFC]" src="/pictures/left-arrow.png" alt="arrow"></button>
-                        <span>{{$cart->kuantitasProduk}}</span>
-                        <button><img class="max-h-[12px] max-w-[12px] border rounded-full border-[#CA3DFC]" src="/pictures/right-arrow.png" alt="arrow"></button>
-                    </td>
-                    <td class="text-[12px]">RP. {{$cart->hargaProduk}}</td>
-                </tr>
-                @endforeach
+                    @foreach ($cart as $cart)
+                    <tr>
+                        <td class="text-[12px]">{{$cart->namaProduk}}</td>
+                        <td class="flex items-center gap-2 text-[12px]">
+                            <button><img class="max-h-[12px] max-w-[12px] border rounded-full border-[#CA3DFC]" src="/pictures/left-arrow.png" alt="arrow"></button>
+                            <span>{{$cart->kuantitasProduk}}</span>
+                            <button><img class="max-h-[12px] max-w-[12px] border rounded-full border-[#CA3DFC]" src="/pictures/right-arrow.png" alt="arrow"></button>
+                        </td>
+                        <td class="text-[12px]">RP. {{$cart->hargaProduk}}</td>
+                    </tr>
+                    @endforeach
                 
                 </tbody>
             </table>
