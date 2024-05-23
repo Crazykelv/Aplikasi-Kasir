@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\accController;
-use App\Http\Controllers\dashboardHandler;
-use App\Http\Controllers\dbController;
-use App\Http\Controllers\navController;
+use App\Models\Transaksi;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\dbController;
+use App\Http\Controllers\accController;
+use App\Http\Controllers\navController;
+use App\Http\Controllers\dashboardHandler;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,8 @@ Route::get('/history-transaksi',[navController::class,'history']);
 // dbController
 Route::get('/addIncrement/{id}',[dbController::class,'addIncrement']);
 Route::get('/minIncrement/{id}',[dbController::class,'minIncrement']);
+Route::get('/addTransaksi/{id}',[dbController::class,'addTransaksi']);
+Route::get('/delHist/{id}',[dbController::class,'delHist']);
 
 
 Route::post('/addProduk',[dbController::class,'addProduk']);

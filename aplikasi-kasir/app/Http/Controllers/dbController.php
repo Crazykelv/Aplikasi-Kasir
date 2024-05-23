@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Produk;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,42 +36,88 @@ class dbController extends Controller
         return view('tambah-produk');
     }
 
-    // public function addTransaksi($id) {
+    public function addTransaksi($id) {
 
-    //     $user = User::all();
-    //     $cart = Cart::all();
-    //     $transaksi = new Transaksi;
+        if ($id == 0) {
+
+            $cart = Cart::all();
+
+            $transaksi = new Transaksi;
+
+            $transaksi -> idMember = $id;
+            $transaksi -> namaMember = 'Pembeli';
+
+            $namaProduks = [];
+            foreach ($cart as $item) {
+                $namaProduks[] = $item->namaProduk . ' ' . $item->kuantitasProduk;
+            }
+
+            $transaksi->namaProduk = implode(',', $namaProduks);
+
+            $totalQuantity = Cart::sum('kuantitasProduk');
+            $transaksi->kuantitas = $totalQuantity;
+
+            $jmlharga = 0;
+            $transaksi -> discount = 0;
+
+                foreach ($cart as $item) {
+                    $jmlharga += $item->hargaProduk * $item->kuantitasProduk;
+                    $transaksi->jmlHarga = $jmlharga;
+
+                    // $pembeli = new User;
+                    // $pembeli -> nama = 'pembeli';
+                    // $pembeli->save();
+
+                }
+            
+
+        } else if ($id != 0) {
+
+            $idMem = $id;
+            $user = User::find($idMem);
+            $cart = Cart::all();
+
+            $transaksi = new Transaksi;
+
+            $transaksi -> idMember = $idMem;
+            $transaksi -> namaMember = $user -> nama;
+
+            $namaProduks = [];
+            foreach ($cart as $item) {
+                $namaProduks[] = $item->namaProduk . ' ' . $item->kuantitasProduk;
+            }
+
+            $transaksi->namaProduk = implode(', ', $namaProduks);
+
+            $totalQuantity = Cart::sum('kuantitasProduk');
+            $transaksi->kuantitas = $totalQuantity;
 
 
-    //     $namaProduks = [];
-    //     foreach ($cart as $item) {
-    //         $namaProduks[] = $item->nama;
-    //     }
+            if ($user -> userValue === 1) {
 
-    //     $transaksi->namaProduk = implode(',', $namaProduks);
-    //     $transaksi->kuantitas = $cart.count();
-    //     $transaksi->jmlHarga = if ($user -> userValue === 1) {
-    //                             foreach ($cart->harga as $item) {
-    //                                 $jmlharga += $item->harga;
-    //                             }
-    //                             $jmlharga * $user->discount;
-    //                             $transaksi -> discount = $user->discount;
-    //                         } else {
-    //                             foreach ($cart->harga as $item) {
-    //                                 $jmlharga += $iitem->harga;
-    //                                 $pembeli = new User;
-    //                                 $pembeli -> nama = 'pembeli';
-    //                                 $pembeli->save();
-    //                             }
-    //                         }
+                $jmlharga = 0;
+
+                foreach ($cart as $item) {
+                    $jmlharga += $item->hargaProduk * $item->kuantitasProduk;
+                }
+
+                $jmlharga -= ($jmlharga * $user->discount);
+                $transaksi->jmlHarga = $jmlharga;
+                $transaksi -> discount = $user->discount;
+
+            }
+
+        }
+
         
-    //     $transaksi->save();
-    //     foreach (Cart::all() as $item) {
-    //         $item->delete();
-    //       }        
+        
+        $transaksi->save();
+        foreach (Cart::all() as $item) {
+            $item->delete();
+          }        
 
-    //     return redirect()->back();
-    // }
+        return redirect()->back();
+    }
 
     public function addcart(Request $request, $produkid)
     {
@@ -130,6 +177,14 @@ class dbController extends Controller
         }
 
         $cart->save();
+
+        return redirect()->back();
+    }
+
+    public function delHist($id) {
+
+        $hist = Transaksi::find($id);
+        $hist->delete();
 
         return redirect()->back();
     }

@@ -17,7 +17,7 @@
                 <a href="{{url('member')}}" class="border-b pl-5 pr-7 pb-2 pt-3 hover:bg-gray-200 border-gray-500">Member</a>
                 <button id="katalogBtn" class="border-b pl-3 pr-7 py-2 hover:bg-gray-200 border-gray-500">Katalog</button>
                 <a href="{{url('history-transaksi')}}" class="border-b pl-5 pr-7 py-2 hover:bg-gray-200 border-gray-500">History</a>
-                <a href="" class="text-[#cd4cfb] pl-5 pr-7 pt-2 pb-3 hover:bg-gray-200">Logout</a>
+                <a href="{{url('logout')}}" class="text-[#cd4cfb] pl-5 pr-7 pt-2 pb-3 hover:bg-gray-200">Logout</a>
             </div>
             <a href="{{url('dashboard')}}">Vilion Apparel</a>
         </div>
@@ -163,9 +163,20 @@
         </div>
         </div>
         <div class="flex gap-11 justify-center">
-            <button id="paymentBtn" class="text-lg font-semibold text-white hover:text-[#cd4cfb] bg-[#cd4cfb] w-full py-3 px-12 rounded-lg hover:border-2 hover:bg-transparent hover:border-[#cd4cfb]  hover:shadow-lg border-2 border-[#eaeaea]">
-            PAYMENT
-            </button>
+            {{-- @if ($idMember > 0) --}}
+            <a href="{{url('addTransaksi', $idMember)}}"> 
+                <button id="paymentBtn" class="text-lg font-semibold text-white hover:text-[#cd4cfb] bg-[#cd4cfb] w-full py-3 px-12 rounded-lg hover:border-2 hover:bg-transparent hover:border-[#cd4cfb]  hover:shadow-lg border-2 border-[#eaeaea]">
+                PAYMENT
+                </button>
+            </a>
+            {{-- @else
+            <a href="{{url('addTransaksi', $idMember)}}"> 
+                <button id="paymentBtn" class="text-lg font-semibold text-white hover:text-[#cd4cfb] bg-[#cd4cfb] w-full py-3 px-12 rounded-lg hover:border-2 hover:bg-transparent hover:border-[#cd4cfb]  hover:shadow-lg border-2 border-[#eaeaea]">
+                PAYMENT
+                </button>
+            </a>
+            @endif --}}
+            
             <a href="{{url('history-transaksi')}}" id="historyBtn" class="hidden text-center text-lg font-semibold text-white hover:text-[#cd4cfb] bg-[#cd4cfb] w-full py-3 px-12 rounded-lg hover:border-2 hover:bg-transparent hover:border-[#cd4cfb]  hover:shadow-lg border-2 border-[#eaeaea]">
             HISTORY TRANSAKSI
             </a>

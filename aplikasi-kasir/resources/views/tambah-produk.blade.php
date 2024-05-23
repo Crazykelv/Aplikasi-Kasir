@@ -31,8 +31,6 @@
                         <option value="wanita">Wanita</option>
                     </select>
                     <select class="font-semibold text-gray-500 outline-[#cd4cfb] px-4 py-2 border border-gray-500 rounded-lg" name="kategori">
-                        <option value="pria">Jas Pria</option>
-                        <option value="wanita">Jas Wanita</option>
                         <option value="setelan">Setelan</option>
                         <option value="celana">Celana</option>
                         <option value="baju">Baju</option>

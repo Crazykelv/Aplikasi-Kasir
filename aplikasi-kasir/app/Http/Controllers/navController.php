@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Produk;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
 class navController extends Controller
@@ -43,31 +44,6 @@ class navController extends Controller
         $discount = 0;
         $discountLabel = '0%';
         $idMember = 0;
-
-        // if ($user) {
-
-        //     foreach ($user as $user) {
-
-        //         if ($user -> userValue === 1) {
-
-        //             $discount = $user -> discount;
-        
-        //             if ($discount === 0.10) {
-        //                 $discountLabel = '10%'; 
-        //             } else if ($discount === 0.20) {
-        //                 $discountLabel = '20%'; 
-        //             } else if ($discount === 0.30) {
-        //                 $discountLabel = '30%'; 
-        //             }
-
-        //             $idMember = $user -> id;
-
-        //         }
-
-        //     }
-            
-
-        // }
         
         return view('dashboard', [
             'produk' => $produk,
@@ -160,7 +136,11 @@ class navController extends Controller
 
     public function history() {
 
-        return view('history');
+        $hist = Transaksi::all();
+
+        return view('history', [
+            'hist' => $hist
+        ]);
     }
 
 }

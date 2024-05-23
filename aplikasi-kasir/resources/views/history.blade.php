@@ -26,35 +26,23 @@
                         <th></th>
                         <th class="pr-52">Tanggal</th>
                         <th>ID Member</th>
+                        <th>Nama</th>
                         <th>ID Transaksi</th>
                         <th>Cost</th>
                         <th></th>
                     </thead>
                     <tbody>
+                        @foreach ($hist as $item)
                         <tr>
                             <td><input type="checkbox" name="" class="w-7 h-7 cursor-pointer" id="check"></td>
-                            <td class="pr-52">16/05/2024</td>
-                            <td>227006069</td>
-                            <td>001</td>
-                            <td class="font-semibold text-lg">Rp 159.000</td>
-                            <td><img src="pictures\trash.png" alt="delete" class="cursor-pointer w-7 h-7"></td>
+                            <td class="pr-52">{{$item->created_at}}</td>
+                            <td>{{$item->idMember}}</td>
+                            <td>{{$item->namaMember}}</td>
+                            <td>{{$item->id}}</td>
+                            <td class="font-semibold text-lg">{{$item->jmlHarga}}</td>
+                            <td><a href="{{url('delHist', $item->id)}}"><img src="pictures\trash.png" alt="delete" class="cursor-pointer w-7 h-7"></a></td>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox" name="" class="w-7 h-7 cursor-pointer" id="check"></td>
-                            <td class="pr-52">16/05/2024</td>
-                            <td>227006069</td>
-                            <td>001</td>
-                            <td class="font-semibold text-lg">Rp 159.000</td>
-                            <td><img src="pictures\trash.png" alt="delete" class="cursor-pointer w-7 h-7"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="" class="w-7 h-7 cursor-pointer" id="check"></td>
-                            <td class="pr-52">16/05/2024</td>
-                            <td>227006069</td>
-                            <td>001</td>
-                            <td class="font-semibold text-lg">Rp 159.000</td>
-                            <td><img src="pictures\trash.png" alt="delete" class="cursor-pointer w-7 h-7"></td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

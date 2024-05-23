@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
+            $table->smallInteger('idMember');
+            $table->string('namaMember')->nullable();
             $table->string('namaProduk');
             $table->smallInteger('kuantitas');
             $table->integer('jmlHarga');
