@@ -16,12 +16,13 @@
     </header>
 
     <div class="flex justify-center">
-        <form method="POST" action="{{url('')}}" enctype="multipart/form-data">
+        <form method="POST" action="{{url('addMemberData')}}" enctype="multipart/form-data">
+            @csrf
             <div class="bg-white flex flex-col p-6 gap-7 rounded-xl w-[350px] my-28 shadow-xl">
                 <h1 class="font-semibold">Add Member</h1>
-                <input type="text" placeholder="Nama" name="nama" class="w-full px-5 py-2 font-semibold border border-gray-500 rounded-lg outline-[#cd4cfb]">
-                <input type="text" placeholder="WhatsApp" name="wa" class="w-full px-5 py-2 font-semibold border border-gray-500 rounded-lg outline-[#cd4cfb]">
-                <button class="bg-gradient-to-b from-[#7e5ca6] to-[#cd4cfb] text-white px-5 py-2 font-semibold rounded-md hover:bg-transparent hover:outline-[#cd4cfb]">Submit</button>
+                <input type="text" placeholder="Nama" name="namaMember" class="w-full px-5 py-2 font-semibold border border-gray-500 rounded-lg outline-[#cd4cfb]">
+                <input type="text" placeholder="WhatsApp" name="noTelepon" class="w-full px-5 py-2 font-semibold border border-gray-500 rounded-lg outline-[#cd4cfb]">
+                <button type="submit" class="bg-gradient-to-b from-[#7e5ca6] to-[#cd4cfb] text-white px-5 py-2 font-semibold rounded-md hover:bg-transparent hover:outline-[#cd4cfb]">Submit</button>
             </div>
         </form>
     </div>

@@ -35,22 +35,42 @@ class dbController extends Controller
         return view('tambah-produk');
     }
 
-    public function addTransaksi($id) {
+    // public function addTransaksi($id) {
 
-        $user = User::all();
+    //     $user = User::all();
+    //     $cart = Cart::all();
+    //     $transaksi = new Transaksi;
 
-        if ($user -> id == $id) {
 
-        }
-        else {
-            $user = new User;  
-            
-        }
+    //     $namaProduks = [];
+    //     foreach ($cart as $item) {
+    //         $namaProduks[] = $item->nama;
+    //     }
 
+    //     $transaksi->namaProduk = implode(',', $namaProduks);
+    //     $transaksi->kuantitas = $cart.count();
+    //     $transaksi->jmlHarga = if ($user -> userValue === 1) {
+    //                             foreach ($cart->harga as $item) {
+    //                                 $jmlharga += $item->harga;
+    //                             }
+    //                             $jmlharga * $user->discount;
+    //                             $transaksi -> discount = $user->discount;
+    //                         } else {
+    //                             foreach ($cart->harga as $item) {
+    //                                 $jmlharga += $iitem->harga;
+    //                                 $pembeli = new User;
+    //                                 $pembeli -> nama = 'pembeli';
+    //                                 $pembeli->save();
+    //                             }
+    //                         }
         
+    //     $transaksi->save();
+    //     foreach (Cart::all() as $item) {
+    //         $item->delete();
+    //       }        
 
-        return view('');
-    }
+    //     return redirect()->back();
+    // }
 
     public function addcart(Request $request, $produkid)
     {
@@ -80,5 +100,38 @@ class dbController extends Controller
         }
     }
 
+    public function addIncrement($id) {
+
+        $cart = Cart::find($id);
+
+        if ($cart->kuantitasProduk === 1) {
+            $harga = $cart -> hargaProduk;
+        }
+        
+        if ($cart->kuantitasProduk != 0) {
+            $cart -> kuantitasProduk += 1;
+        } else if ($cart === 0) {
+            return redirect()->back();
+        }
+
+        $cart->save();
+
+        return redirect()->back();
+    }
+
+    public function minIncrement($id) {
+
+        $cart = Cart::find($id);
+
+        if ($cart->kuantitasProduk > 0) {
+            $cart -> kuantitasProduk -= 1;
+        } else if ($cart === 0) {
+            return redirect()->back();
+        }
+
+        $cart->save();
+
+        return redirect()->back();
+    }
 
 }

@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 // navController
 Route::get('/',[navController::class,'login']);
 Route::get('/dashboard',[navController::class,'dashboard']);
+Route::get('/dashboardMember/{id}',[navController::class,'dashboardMember']);
 Route::get('/nAddProduk',[navController::class,'nAddProduk']);
 Route::get('/member',[navController::class,'member']);
 Route::get('/addMember',[navController::class,'addMember']);
@@ -29,8 +30,11 @@ Route::get('/history-transaksi',[navController::class,'history']);
 
 
 
-// dbController
 
+
+// dbController
+Route::get('/addIncrement/{id}',[dbController::class,'addIncrement']);
+Route::get('/minIncrement/{id}',[dbController::class,'minIncrement']);
 
 
 Route::post('/addProduk',[dbController::class,'addProduk']);
@@ -38,8 +42,15 @@ Route::post('/addcart/{id}', [dbController::class, 'addcart']);
 
 
 // accController
+Route::get('/delMember/{id}',[accController::class,'delMember']);
+Route::get('/updateDiscUp/{id}',[accController::class,'updateDiscUp']);
+Route::get('/updateDiscDown/{id}',[accController::class,'updateDiscDown']);
 Route::get('/logout',[accController::class,'logout']);
+
+
+
 Route::post('/login',[accController::class,'login']);
+Route::post('/addMemberData',[accController::class,'addMemberData']);
 
 
 Route::post('/register',[accController::class,'register']);
@@ -52,4 +63,9 @@ Route::get('/filterFemale',[dashboardHandler::class,'filterFemale']);
 Route::get('/filterSetelan',[dashboardHandler::class,'filterSetelan']);
 Route::get('/filterCelana',[dashboardHandler::class,'filterCelana']);
 Route::get('/filterBaju',[dashboardHandler::class,'filterBaju']);
+Route::get('/cancel',[dashboardHandler::class,'cancel']);
 // Route::get('/tambah/{$produkid}',[dashboardHandler::class,'tambah']);
+
+
+
+

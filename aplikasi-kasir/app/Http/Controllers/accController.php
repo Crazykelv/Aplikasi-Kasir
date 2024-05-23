@@ -44,14 +44,57 @@ class accController extends Controller
     }   // Login & Register buat Admin
 
     // Tambah data member
-    public function addMember(Request $request) {
+    public function addMemberData(Request $request) {
         $member = new User();
 
         $member -> nama = $request -> namaMember;
         $member -> noTelepon = $request -> noTelepon;
-        $member -> discount = $request -> discount;
+        $member -> userValue = 1;
 
         $member -> save();
+
+        return redirect('member');
+    }
+
+    public function delMember($id) {
+
+        $user = User::find($id);
+
+        $user->delete();
+
+        return redirect()->back();
+
+    }
+
+    public function updateDiscUp($id) {
+
+        $user = User::find($id);
+
+        if ($user->discount === 0.30) {
+            return redirect()->back();
+        } else if ($user->discount <= 0.30) {
+            $user -> discount += 0.10;
+        }
+
+        $user -> save();
+
+        return redirect()->back();        
+    }
+
+    public function updateDiscDown($id) {
+
+        $user = User::find($id);
+
+        if ($user->discount === 0) {
+            return redirect()->back();
+        } else if ($user->discount > 0) {
+            $user -> discount -= 0.10;
+        }
+
+        $user -> save();
+
+        return redirect()->back();        
     }
 
 }
+

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     @vite('resources/css/app.css')
-    <link rel="stylesheet" href="public/css/dashboard.css">
+    <link rel="stylesheet" href="{{asset('public/css/dashboard.css')}}">
 </head>
 <body class="bg-[#eaeaea] flex flex-col">
 
@@ -22,7 +22,7 @@
             <a href="{{url('dashboard')}}">Vilion Apparel</a>
         </div>
         <div class="flex text-white items-center gap-5">
-            <a href="">Admin</a>
+            <a href="">{{Auth::user()->nama}}</a>
             <a href=""><img class="rounded-full max-w-[50px] max-h-[50px]" src="/pictures/VL.png" alt="vl"></a>
         </div>
     </nav>
@@ -52,7 +52,7 @@
                     <input type="hidden" name="hargaProduk" value="{{$item->harga}}">
                     <div class="grid grid-cols-5 gap-y-10 justify-between">
                         <a href="javascript:void(0)" onclick="document.getElementById('add-to-cart-{{$item->id}}').submit();" class="flex flex-col items-center gap-2 max-w-[130px]">
-                            <img class="rounded-lg max-w-[120px] max-h-[120px]" src="images/foto-produk/{{$item->fotoP}}" alt="">
+                            <img class="rounded-lg max-w-[120px] max-h-[120px]" src="{{asset('images/foto-produk/' . $item->fotoP)}}" alt="">
                             <h1 class=" text-xs">{{$item->nama}}</h1>
                             <h1 class="font-semibold text-[10px]">Rp. {{$item->harga}}</h1>
                         </a>
@@ -98,9 +98,12 @@
             <button id="goPayment" class="bg-transparent py-3 px-12 rounded-lg hover:border-2 hover:bg-white hover:border-[#cd4cfb] hover:shadow-lg border-2 border-[#aa3ed1]">
                 <span class="text-lg font-semibold text-[#aa3ed1]">Payment</span>
             </button>
-            <button id="cancelBtn" class="bg-transparent py-3 px-12 rounded-lg hover:border-2 hover:bg-white hover:border-[#cd4cfb] hover:shadow-lg border-2 border-[#d00202]">
-                <span class="text-lg font-semibold text-[#d00202]">Cancel Order</span>
-            </button>
+            <a href="{{url('cancel')}}">
+                <button id="cancelBtn" class="bg-transparent py-3 px-12 rounded-lg hover:border-2 hover:bg-white hover:border-[#cd4cfb] hover:shadow-lg border-2 border-[#d00202]">
+                    <span class="text-lg font-semibold text-[#d00202]">Cancel Order</span>
+                </button>            
+            </a>
+
         </div>
         </div>
 
@@ -124,9 +127,9 @@
                     <tr>
                         <td class="text-[12px]">{{$cart->namaProduk}}</td>
                         <td class="flex items-center gap-2 text-[12px]">
-                            <button><img class="max-h-[12px] max-w-[12px] border rounded-full border-[#CA3DFC]" src="/pictures/left-arrow.png" alt="arrow"></button>
+                            <a href="{{url('minIncrement', $cart->id)}}"><img class="max-h-[12px] max-w-[12px] border rounded-full border-[#CA3DFC]" src="/pictures/left-arrow.png" alt="arrow"></a>
                             <span>{{$cart->kuantitasProduk}}</span>
-                            <button><img class="max-h-[12px] max-w-[12px] border rounded-full border-[#CA3DFC]" src="/pictures/right-arrow.png" alt="arrow"></button>
+                            <a href="{{url('addIncrement', $cart->id)}}"><img class="max-h-[12px] max-w-[12px] border rounded-full border-[#CA3DFC]" src="/pictures/right-arrow.png" alt="arrow"></a>
                         </td>
                         <td class="text-[12px]">RP. {{$cart->hargaProduk}}</td>
                     </tr>
@@ -138,19 +141,24 @@
         <div class="bg-white">
             <div class="flex justify-between px-10 border-t border-b border-[#cd4cfb] py-3">
                 <a href="{{url('member')}}" class="text-xs text-gray-600">add member</a>
-                <span class="text-xs text-gray-600">id member</span>
+                @if ($idMember > 0)
+                <span class="text-xs text-gray-600">Id Member : {{$idMember}}</span>
+                @else
+                <span class="text-xs text-gray-600">Id Member</span>                
+                @endif
             </div>
             <div class="flex justify-between px-10 py-3">
                 <span class="text-xs text-gray-600">discount %</span>
-                <span class="text-xs text-gray-600">20</span>
+                <span class="text-xs text-gray-600">{{$dLabel}}</span>
             </div>
             <div class="flex justify-between px-10 border-b border-[#cd4cfb] py-3">
                 <span class="text-xs text-gray-600">Sub Total</span>
-                <span class="text-xs text-gray-600">277.000</span>
+                <span class="text-xs text-gray-600"> {{$jmlharga}}
+                </span>
             </div>
             <div class="flex justify-between px-10 items-center pt-4">
                 <span class="text-lg font-semibold ">Total</span>
-                <span class="text-lg font-semibold text-gray-600">RP 270.000</span>
+                <span class="text-lg font-semibold text-gray-600">{{$total}}</span>
             </div>
         </div>
         </div>
@@ -169,6 +177,6 @@
 
     <!-- MAIN SECTION -->
 
-    <script src="js\dashboard.js"></script>
+    <script src="{{asset('js\dashboard.js')}}"></script>
 </body>
 </html>

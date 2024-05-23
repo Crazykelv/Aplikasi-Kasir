@@ -38,34 +38,32 @@
                         <th></th>
                     </thead>
                     <tbody>
+                        @foreach ($member as $item)
                         <tr>
                             <td><input type="checkbox" name="" class="w-7 h-7 cursor-pointer" id="check"></td>
-                            <td class="pr-52">Faiq patayat</td>
-                            <td>227006069</td>
-                            <td><button class="text-[#45b289] bg-gray-200 font-semibold px-4 py-1 rounded-xl border-white border-2 hover:bg-transparent hover:border-[#45b289] hover:text-[#45b289]">Whatsapp</button></td>
+                            <td class="pr-52">{{$item->nama}}</td>
+                            <td>{{$item->id}}</td>
+                            <td><button class="text-[#45b289] bg-gray-200 font-semibold px-4 py-1 rounded-xl border-white border-2 hover:bg-transparent hover:border-[#45b289] hover:text-[#45b289]">{{$item->noTelepon}}</button></td>
                             <td class="font-semibold text-lg flex items-center py-8 gap-2">
-                                <img id="reduceBtn" src="pictures\left-arrow-with-outline.png" class="cursor-pointer max-h-[20px] max-w-[20px]" alt="arrow">
-                                30%
-                                <img id="addBtn" src="pictures\right-arrow-with-outline.png" class="cursor-pointer max-h-[20px] max-w-[20px]" alt="arrow">    
+                                <a href="{{url('updateDiscDown', $item->id)}}">
+                                    <img id="reduceBtn" src="pictures\left-arrow-with-outline.png" class="cursor-pointer max-h-[20px] max-w-[20px]" alt="arrow">
+                                </a>
+                                {{$item->discount}}
+                                <a href="{{url('updateDiscUp', $item->id)}}">
+                                    <img id="addBtn" src="pictures\right-arrow-with-outline.png" class="cursor-pointer max-h-[20px] max-w-[20px]" alt="arrow">    
+                                </a>
                             </td>
-                            <td><img src="pictures\trash.png" alt="delete" class="cursor-pointer w-7 h-7"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="" class="w-7 h-7 cursor-pointer" id="check"></td>
-                            <td class="pr-52">Faiq patayat</td>
-                            <td>227006069</td>
-                            <td><button class="text-[#45b289] bg-gray-200 font-semibold px-4 py-1 rounded-xl border-white border-2 hover:bg-transparent hover:border-[#45b289] hover:text-[#45b289]">Whatsapp</button></td>
-                            <td class="font-semibold text-lg flex items-center py-8 gap-2">
-                                <img id="reduceBtn" src="pictures\left-arrow-with-outline.png" class="cursor-pointer max-h-[20px] max-w-[20px]" alt="arrow">
-                                30%
-                                <img id="addBtn" src="pictures\right-arrow-with-outline.png" class="cursor-pointer max-h-[20px] max-w-[20px]" alt="arrow">    
+                            <td> <a href="{{url('delMember', $item->id)}}"> <img src="pictures\trash.png" alt="delete" class="cursor-pointer w-7 h-7"> </a> </td>
+                            <td class="text-end mt-14 px-14">
+                                <a href="{{url('dashboardMember', $item->id)}}">
+                                    <button class="bg-[#cd4cfb] px-5 py-1 text-white font-semibold rounded-lg border-2 border-white hover:bg-transparent hover:border-[#cd4cfb] hover:text-[#cd4cfb]">Submit</button>
+                                </a>
                             </td>
-                            <td><img src="pictures\trash.png" alt="delete" class="cursor-pointer w-7 h-7"></td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="text-end mt-14 px-14"><button class="bg-[#cd4cfb] px-5 py-1 text-white font-semibold rounded-lg border-2 border-white hover:bg-transparent hover:border-[#cd4cfb] hover:text-[#cd4cfb]">Submit</button></div>
         </div>
     </div>
 </body>

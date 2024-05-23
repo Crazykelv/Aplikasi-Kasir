@@ -87,5 +87,15 @@ class dashboardHandler extends Controller
     // }
 
     // Sidebar
+
+    public function cancel() {
+
+        foreach (Cart::all() as $item) {
+            $item->delete();
+          }
+
+        return redirect()->back();
+
+    }
     
 }
