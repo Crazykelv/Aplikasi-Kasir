@@ -6,6 +6,7 @@ use App\Http\Controllers\dbController;
 use App\Http\Controllers\accController;
 use App\Http\Controllers\navController;
 use App\Http\Controllers\dashboardHandler;
+use App\Http\Controllers\FPGrowthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::get('/nAddProduk',[navController::class,'nAddProduk']);
 Route::get('/member',[navController::class,'member']);
 Route::get('/addMember',[navController::class,'addMember']);
 Route::get('/history-transaksi',[navController::class,'history']);
+Route::get('/dashGrowth',[navController::class,'dashGrowth']);
 
 
 
@@ -68,6 +70,7 @@ Route::get('/filterCelana',[dashboardHandler::class,'filterCelana']);
 Route::get('/filterBaju',[dashboardHandler::class,'filterBaju']);
 Route::get('/cancel',[dashboardHandler::class,'cancel']);
 // Route::get('/tambah/{$produkid}',[dashboardHandler::class,'tambah']);
+
 
 
 

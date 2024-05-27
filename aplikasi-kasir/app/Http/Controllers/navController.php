@@ -20,7 +20,6 @@ class navController extends Controller
 
         $produk = Produk::all();
         $cart = Cart::all();
-        // $user = User::all();
 
         $jmlharga = 0;
         $total = 0;
@@ -41,6 +40,8 @@ class navController extends Controller
 
         }
 
+        $growth = Produk::orderBy('frequent', 'desc')->get();
+
         $discount = 0;
         $discountLabel = '0%';
         $idMember = 0;
@@ -52,8 +53,52 @@ class navController extends Controller
             'discount' => $discount,
             'dLabel' => $discountLabel,
             'idMember' => $idMember,
-            'total' => $total
+            'total' => $total,
+            'growth' => $growth
         ]);
+    }
+
+    public function dashGrowth() {
+
+        $produk = Produk::all();
+        $cart = Cart::all();
+
+        $jmlharga = 0;
+        $total = 0;
+        
+        if ($cart) {
+            foreach ($cart as $item) {
+                if ($item->hargaProduk) {
+                    if ($item->kuantitasProduk > 1) {
+                        $jmlharga += $item->hargaProduk * $item->kuantitasProduk;
+                    } else {
+                        $jmlharga += $item->hargaProduk;
+                    }
+
+                }
+            }
+
+            $total = $jmlharga;
+
+        }
+
+        $growth = Produk::orderBy('frequent', 'desc')->get();
+
+        $discount = 0;
+        $discountLabel = '0%';
+        $idMember = 0;
+        
+        return view('dashGrowth', [
+            'produk' => $produk,
+            'cart' => $cart,
+            'jmlharga' => $jmlharga,
+            'discount' => $discount,
+            'dLabel' => $discountLabel,
+            'idMember' => $idMember,
+            'total' => $total,
+            'growth' => $growth
+        ]);
+
     }
 
     public function dashboardMember($id)

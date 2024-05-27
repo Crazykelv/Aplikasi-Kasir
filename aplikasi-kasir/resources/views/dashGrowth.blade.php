@@ -47,7 +47,7 @@
             </div>
 
             <div class="grid grid-cols-5 gap-y-10 justify-between">
-                @foreach ($produk as $item)
+                @foreach ($growth as $item)
                 <form action="{{url('addcart', $item->id)}}" method="post" id="add-to-cart-{{$item->id}}">
                     @csrf
                     <input type="hidden" name="namaProduk" value="{{$item->nama}}">

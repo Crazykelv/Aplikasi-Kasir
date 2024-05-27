@@ -207,27 +207,6 @@ class dashboardHandler extends Controller
     }
     // Filter
 
-    // public function tambahCart(Produk $produkid) {
-
-    //     // $produks = Produk::all();
-    //     $produk = Produk::find($produkid);
-    //     // $cart = new Cart;
-
-    //     // $cart -> namaProduk = $produk->namaProduk;
-    //     // $cart -> kuantitasProduk = $produk->kuantitasProduk;
-    //     // $cart -> hargaProduk = $produk->hargaProduk;
-
-    //     // $cart->save();
-
-    //     // dd($produkid);
-
-    //     return view('dashboard', [
-    //         'produk' => $produk
-    //     ]);
-    // }
-
-    // Sidebar
-
     public function cancel() {
 
         foreach (Cart::all() as $item) {

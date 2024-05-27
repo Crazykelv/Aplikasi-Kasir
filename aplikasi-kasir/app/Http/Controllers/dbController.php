@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Models\Produk;
 use App\Models\Transaksi;
+use App\Helpers\FPGrowth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +21,7 @@ class dbController extends Controller
         $produk -> kelamin = $request -> kelamin;
         $produk -> harga = $request -> harga;
         $produk -> stok = $request -> stok;
+        $produk -> frequent = 0;
         
         $gambar = $request -> foto;
 
@@ -131,6 +133,8 @@ class dbController extends Controller
             if ($cartItem) {
                 // If the product is already in the cart, increment the quantity
                 $cartItem->kuantitasProduk += $request->kuantitasProduk;
+                $produk->frequent += 1;
+                $produk->save();
                 $cartItem->save();
             } else {
                 // If the product is not in the cart, add a new item
@@ -138,6 +142,8 @@ class dbController extends Controller
                 $cart->namaProduk = $produk->nama;
                 $cart->kuantitasProduk = $request->kuantitasProduk;
                 $cart->hargaProduk = $produk->harga;
+                $produk->frequent += 1;
+                $produk->save();
                 $cart->save();
             }
 
@@ -187,6 +193,20 @@ class dbController extends Controller
         $hist->delete();
 
         return redirect()->back();
+    }
+
+    public function generateFPGrowth()
+    {
+        $transactions = Transaksi::all()->groupBy('idMember')->map(function ($memberTransactions) {
+            return $memberTransactions->pluck('namaProduk')->toArray();
+        })->values()->toArray();
+
+        $minSupport = 2; // Set minimum support threshold
+        $fpGrowth = new FPGrowth($transactions, $minSupport);
+        $result = $fpGrowth->minePatterns();
+
+        $transaksis = Transaksi::all(); // Add this line to pass $transaksis to the view
+        return view('dashboard', compact('result', 'transaksis'));
     }
 
 }
